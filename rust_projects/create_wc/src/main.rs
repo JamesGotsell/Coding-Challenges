@@ -1,15 +1,16 @@
-use std::env;
-use std::fs;
 fn main() {
-    println!("Hello, world!");
-    let mut args: Vec<_> = env::args().collect();
-    let stuff = args;
-    let file_path = stuff[1];
-
-    println!("In file {:?}", file_path);
-
-    let contents = fs::read_to_string(file_path)
-        .expect("Should have been able to read the file");
-
-    println!("With text:\n{contents}");
+    // line count
+    let file_name = std::env::args().nth(1).expect("the file name to be passed in");
+    let file = std::fs::read_to_string(file_name).expect("unable to read the file to string");
+    let mut count: usize = 1;
+    let mut temp: Vec<usize> = vec![];
+    file.lines().for_each(|line| {
+            count += 1;
+            temp.push(line.len());
+            println!("{}", line);
+        println!("{:?}",temp);
+        });
+    println!("{} lines in file ", count);
+    let wc: usize = temp.into_iter().sum();
+    println!("{} wc ", wc);
 }
